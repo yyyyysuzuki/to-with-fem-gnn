@@ -33,20 +33,19 @@ from multiscale_operator.operators.gnn_perceiver import GraphPeceiverOperator
 "出力桁数設定---------------"
 np.set_printoptions(precision=8, floatmode='maxprec')
 
-"再現性設定-----------------"
-SEED = 126
-random.seed(SEED)
-np.random.seed(SEED)
-torch.manual_seed(SEED)
-torch.cuda.manual_seed(SEED)
-
 "定数設定-------------------"
 NUM_ELITE = 0
 
 class GeneticAlgorithm():
  #---------------------------------------------
     ##  1. Constructor
-    def __init__(self, dim, stepsize, GenNumber, PopNumber, ParentNumber, ChildrenNumber, functype, minval, maxval):
+    def __init__(self, seed, pcfg, dim, stepsize, GenNumber, PopNumber, ParentNumber, ChildrenNumber, functype, minval, maxval):
+        self.seed            = seed
+        random.seed(self.seed)
+        np.random.seed(self.seed)
+        torch.manual_seed(self.seed)
+        torch.cuda.manual_seed(self.seed)
+        self.pcfg            = pcfg
         self.indnum          = 0
         self.numfem          = 0
         self.A_scaling       = 1e+6
@@ -140,8 +139,8 @@ class GeneticAlgorithm():
                 print(Gene.gene(self.best))
                 break
             
-            tb.write_three_lists_to_csv(avefitness, bestfitness, fem, '../results/gen_fitness.csv', ('ave','best','is fem'))
-            tb.write_six_lists_to_csv(self.list_id,self.is_fem,self.list_absb,self.list_s,self.list_value,self.list_void,'../results/fitness.csv',('id','FEM?','ABSB','SheldS','fitness','void'))
+            tb.write_three_lists_to_csv(avefitness, bestfitness, fem, f'../results/{self.pcfg}_{self.seed}/gen_fitness.csv', ('ave','best','is fem'))
+            tb.write_six_lists_to_csv(self.list_id,self.is_fem,self.list_absb,self.list_s,self.list_value,self.list_void,f'../results/{self.pcfg}_{self.seed}/fitness.csv',('id','FEM?','ABSB','SheldS','fitness','void'))
             plt.figure()
             plt.plot(countGen, bestfitness,   color='black', linestyle='solid',   label='best')
             plt.plot(countGen, avefitness,    color='black', linestyle='dotted',  label='average')
@@ -194,7 +193,7 @@ class GeneticAlgorithm():
             list_data.append(data)
             list_s.append(s)
             self.indnum += 1
-            tb.write_list_to_csv(g[i].gene(), f"../results/w_{id}.csv", header=None)
+            tb.write_list_to_csv(g[i].gene(), f"../results/{self.pcfg}_{self.seed}/w_{id}.csv", header=None)
         "推論------------------------------------------"
         eval_loader = DataLoader(list_data,batch_size=32,shuffle = False)
         OutList    = []
@@ -226,7 +225,7 @@ class GeneticAlgorithm():
             fitness_pred  = list_s[j] + 1e+5*absb_pred
 
             # 2. FEM 再解析するか判断
-            if self.should_run_fem(fitness_pred, "c", None):
+            if self.should_run_fem(fitness_pred, self.pcfg, None):
                 used_fem_flag = True
                 a_reval       = Cal.Cal(str(id),g[j].gene())
                 a_reval       = a_reval.reshape(-1, 1)
