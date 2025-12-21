@@ -1,1 +1,4 @@
 results/
+./src/__pycache__/
+*.pyc
+nohup.out
