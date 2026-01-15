@@ -32,7 +32,7 @@ class fem{
     public:
         fem();
         ~fem();
-        void FEM(string ind_name,double* GaussianW);
+        void FEM(bool reval,string pcfg,int seed,string ind_name,double* GaussianW);
         // void Paraview_MaterialConfig(const char* fn);
 
         void read_GaussianData(const char* fn_gaussian);

@@ -1,8 +1,8 @@
 CMakeFiles/Cal.dir/Val.cpp.o: \
- /home/ysuzuki/to_workplace/to-with-fem-gnn-2/src/Val.cpp \
+ /home/ysuzuki/to_workplace/to-with-fem-gnn/src/Val.cpp \
  /usr/include/stdc-predef.h \
- /home/ysuzuki/to_workplace/to-with-fem-gnn-2/src/FEM.h \
- /home/ysuzuki/to_workplace/to-with-fem-gnn-2/src/magic.h \
+ /home/ysuzuki/to_workplace/to-with-fem-gnn/src/FEM.h \
+ /home/ysuzuki/to_workplace/to-with-fem-gnn/src/magic.h \
  /usr/include/c++/11/iostream \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
@@ -210,14 +210,14 @@ CMakeFiles/Cal.dir/Val.cpp.o: \
  /usr/include/c++/11/bits/erase_if.h \
  /usr/include/c++/11/pstl/execution_defs.h /usr/include/c++/11/stdlib.h \
  /usr/include/malloc.h \
- /home/ysuzuki/to_workplace/to-with-fem-gnn-2/src/GenMatrix.h \
+ /home/ysuzuki/to_workplace/to-with-fem-gnn/src/GenMatrix.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/omp.h \
- /home/ysuzuki/to_workplace/to-with-fem-gnn-2/src/NonLinear.h \
- /home/ysuzuki/to_workplace/to-with-fem-gnn-2/src/setting.h \
- /home/ysuzuki/to_workplace/to-with-fem-gnn-2/src/pybind11/include/pybind11/pybind11.h \
- /home/ysuzuki/to_workplace/to-with-fem-gnn-2/src/pybind11/include/pybind11/detail/class.h \
- /home/ysuzuki/to_workplace/to-with-fem-gnn-2/src/pybind11/include/pybind11/attr.h \
- /home/ysuzuki/to_workplace/to-with-fem-gnn-2/src/pybind11/include/pybind11/detail/common.h \
+ /home/ysuzuki/to_workplace/to-with-fem-gnn/src/NonLinear.h \
+ /home/ysuzuki/to_workplace/to-with-fem-gnn/src/setting.h \
+ /home/ysuzuki/to_workplace/to-with-fem-gnn/src/pybind11/include/pybind11/pybind11.h \
+ /home/ysuzuki/to_workplace/to-with-fem-gnn/src/pybind11/include/pybind11/detail/class.h \
+ /home/ysuzuki/to_workplace/to-with-fem-gnn/src/pybind11/include/pybind11/attr.h \
+ /home/ysuzuki/to_workplace/to-with-fem-gnn/src/pybind11/include/pybind11/detail/common.h \
  /home/ysuzuki/miniconda3/envs/pytorch_gpu/include/python3.10/Python.h \
  /home/ysuzuki/miniconda3/envs/pytorch_gpu/include/python3.10/patchlevel.h \
  /home/ysuzuki/miniconda3/envs/pytorch_gpu/include/python3.10/pyconfig.h \
@@ -367,22 +367,22 @@ CMakeFiles/Cal.dir/Val.cpp.o: \
  /usr/include/c++/11/pstl/glue_memory_defs.h \
  /usr/include/c++/11/typeindex /usr/include/c++/11/unordered_set \
  /usr/include/c++/11/bits/unordered_set.h /usr/include/c++/11/version \
- /home/ysuzuki/to_workplace/to-with-fem-gnn-2/src/pybind11/include/pybind11/cast.h \
- /home/ysuzuki/to_workplace/to-with-fem-gnn-2/src/pybind11/include/pybind11/detail/descr.h \
- /home/ysuzuki/to_workplace/to-with-fem-gnn-2/src/pybind11/include/pybind11/detail/type_caster_base.h \
- /home/ysuzuki/to_workplace/to-with-fem-gnn-2/src/pybind11/include/pybind11/pytypes.h \
- /home/ysuzuki/to_workplace/to-with-fem-gnn-2/src/pybind11/include/pybind11/buffer_info.h \
+ /home/ysuzuki/to_workplace/to-with-fem-gnn/src/pybind11/include/pybind11/cast.h \
+ /home/ysuzuki/to_workplace/to-with-fem-gnn/src/pybind11/include/pybind11/detail/descr.h \
+ /home/ysuzuki/to_workplace/to-with-fem-gnn/src/pybind11/include/pybind11/detail/type_caster_base.h \
+ /home/ysuzuki/to_workplace/to-with-fem-gnn/src/pybind11/include/pybind11/pytypes.h \
+ /home/ysuzuki/to_workplace/to-with-fem-gnn/src/pybind11/include/pybind11/buffer_info.h \
  /usr/include/c++/11/iterator /usr/include/c++/11/bits/stream_iterator.h \
  /usr/include/c++/11/optional \
- /home/ysuzuki/to_workplace/to-with-fem-gnn-2/src/pybind11/include/pybind11/detail/internals.h \
- /home/ysuzuki/to_workplace/to-with-fem-gnn-2/src/pybind11/include/pybind11/detail/typeid.h \
+ /home/ysuzuki/to_workplace/to-with-fem-gnn/src/pybind11/include/pybind11/detail/internals.h \
+ /home/ysuzuki/to_workplace/to-with-fem-gnn/src/pybind11/include/pybind11/detail/typeid.h \
  /usr/include/c++/11/cxxabi.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/cxxabi_tweaks.h \
- /home/ysuzuki/to_workplace/to-with-fem-gnn-2/src/pybind11/include/pybind11/options.h \
- /home/ysuzuki/to_workplace/to-with-fem-gnn-2/src/pybind11/include/pybind11/detail/init.h \
- /home/ysuzuki/to_workplace/to-with-fem-gnn-2/src/pybind11/include/pybind11/gil.h \
- /home/ysuzuki/to_workplace/to-with-fem-gnn-2/src/pybind11/include/pybind11/numpy.h \
- /home/ysuzuki/to_workplace/to-with-fem-gnn-2/src/pybind11/include/pybind11/complex.h \
+ /home/ysuzuki/to_workplace/to-with-fem-gnn/src/pybind11/include/pybind11/options.h \
+ /home/ysuzuki/to_workplace/to-with-fem-gnn/src/pybind11/include/pybind11/detail/init.h \
+ /home/ysuzuki/to_workplace/to-with-fem-gnn/src/pybind11/include/pybind11/gil.h \
+ /home/ysuzuki/to_workplace/to-with-fem-gnn/src/pybind11/include/pybind11/numpy.h \
+ /home/ysuzuki/to_workplace/to-with-fem-gnn/src/pybind11/include/pybind11/complex.h \
  /usr/include/c++/11/numeric /usr/include/c++/11/bits/stl_numeric.h \
  /usr/include/c++/11/pstl/glue_numeric_defs.h /usr/include/c++/11/chrono \
  /usr/include/c++/11/ratio /usr/include/c++/11/bits/parse_numbers.h

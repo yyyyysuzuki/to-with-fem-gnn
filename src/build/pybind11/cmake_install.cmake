@@ -1,4 +1,4 @@
-# Install script for directory: /home/ysuzuki/to_workplace/to-with-fem-gnn-2/src/pybind11
+# Install script for directory: /home/ysuzuki/to_workplace/to-with-fem-gnn/src/pybind11
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

@@ -134,10 +134,6 @@ class GeneticAlgorithm():
             countGen.append(GenLoop)
             bestfitness.append(Gene.fitness(self.best))
             avefitness.append(self.average())
-            if (math.sqrt((Gene.fitness(self.best))**2) <= 1e-7):
-                print(GenLoop)
-                print(Gene.gene(self.best))
-                break
             
             tb.write_three_lists_to_csv(avefitness, bestfitness, fem, f'../results/{self.pcfg}_{self.seed}/gen_fitness.csv', ('ave','best','is fem'))
             tb.write_six_lists_to_csv(self.list_id,self.is_fem,self.list_absb,self.list_s,self.list_value,self.list_void,f'../results/{self.pcfg}_{self.seed}/fitness.csv',('id','FEM?','ABSB','SheldS','fitness','void'))
@@ -149,6 +145,12 @@ class GeneticAlgorithm():
             plt.legend()
             plt.savefig('FitnessCurve.png')
             plt.clf()
+
+            # if (math.sqrt((Gene.fitness(self.best))**2) <= 1e-7):
+            #     print(GenLoop)
+            #     print(Gene.gene(self.best))
+            #     break
+        self.reval()
  #-----------------------------------------------
     ##  4. reproduction
     def Reproduction(self):
@@ -189,9 +191,11 @@ class GeneticAlgorithm():
         print(f"gen : {gen}    -----------------------")
         for i in range(len(g)):
             id            = 'gen_' + str(gen) + 'ind_' + str(i + indnum_local)
+            g[i].set_id(id)
             data,s        = gh.graph(id, g[i].gene(), self.node, self.element, self.graph, self.index, self.mask, self.mask_coil, self.gaussian_matrix, self.den)
             list_data.append(data)
             list_s.append(s)
+            g[i].set_s(s)
             self.indnum += 1
             tb.write_list_to_csv(g[i].gene(), f"../results/{self.pcfg}_{self.seed}/w_{id}.csv", header=None)
         "推論------------------------------------------"
@@ -227,7 +231,7 @@ class GeneticAlgorithm():
             # 2. FEM 再解析するか判断
             if self.should_run_fem(fitness_pred, self.pcfg, None):
                 used_fem_flag = True
-                a_reval       = Cal.Cal(str(id),g[j].gene())
+                a_reval       = Cal.Cal(0,self.pcfg,self.seed,str(id),g[j].gene())
                 a_reval       = a_reval.reshape(-1, 1)
                 bx,by         = tb.CalB_v2(a_reval,self.node,self.element)
                 absb          = tb.CalTargetBB(bx,by)
@@ -252,6 +256,12 @@ class GeneticAlgorithm():
             self.list_void.append(0)
             Gene.set_fitness(g[j], fitness)
         "重み保存------------------------------------------------"
+
+    def reval(self):
+        g             = self.best
+        a_reval       = Cal.Cal(1,self.pcfg,self.seed,g.id(),g.gene())
+        "ここに　_,s = gh.graph() ってかくだけでpythonで完結できた．まじでふざけてる　返してくれ俺の1.5h"
+
 
     def BestParents(self):
         Parent_Mirror = self.parent + self.mirror

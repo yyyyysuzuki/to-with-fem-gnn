@@ -5,7 +5,9 @@ random.seed(1)
 class Gene():
 #-----------------------------------------------
     def __init__(self, dim, minval, maxval):
-        self.Dim        = dim                                    
+        self.Dim        = dim
+        self.gid        = None
+        self.area       = None
         self.Fitness    = 0.                                     
         self.Gene       = np.random.uniform(minval, maxval, dim)    
         self.minval     = minval
@@ -24,3 +26,11 @@ class Gene():
         self.Fitness = 0.0
     def set_fitness(self, f):
         self.Fitness = f
+    def set_id(self, id):
+        self.gid = id
+    def id(self):
+        return self.gid
+    def set_s(self, s):
+        self.area = s
+    def s(self):
+        return self.area

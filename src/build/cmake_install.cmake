@@ -1,4 +1,4 @@
-# Install script for directory: /home/ysuzuki/to_workplace/to-with-fem-gnn-2/src
+# Install script for directory: /home/ysuzuki/to_workplace/to-with-fem-gnn/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -44,7 +44,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/ysuzuki/to_workplace/to-with-fem-gnn-2/src/build/pybind11/cmake_install.cmake")
+  include("/home/ysuzuki/to_workplace/to-with-fem-gnn/src/build/pybind11/cmake_install.cmake")
 
 endif()
 
@@ -56,5 +56,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/ysuzuki/to_workplace/to-with-fem-gnn-2/src/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/ysuzuki/to_workplace/to-with-fem-gnn/src/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

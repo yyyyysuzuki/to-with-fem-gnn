@@ -1,8 +1,8 @@
 CMakeFiles/Cal.dir/GenMatrix.cpp.o: \
- /home/ysuzuki/to_workplace/to-with-fem-gnn-2/src/GenMatrix.cpp \
+ /home/ysuzuki/to_workplace/to-with-fem-gnn/src/GenMatrix.cpp \
  /usr/include/stdc-predef.h \
- /home/ysuzuki/to_workplace/to-with-fem-gnn-2/src/GenMatrix.h \
- /home/ysuzuki/to_workplace/to-with-fem-gnn-2/src/magic.h \
+ /home/ysuzuki/to_workplace/to-with-fem-gnn/src/GenMatrix.h \
+ /home/ysuzuki/to_workplace/to-with-fem-gnn/src/magic.h \
  /usr/include/c++/11/iostream \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \

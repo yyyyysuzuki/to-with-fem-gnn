@@ -20,6 +20,7 @@ static const double p9_x = 0.0;
 static const double p9_y = 40*m;
 
 static const int GaussianDiv   = 64;
+static const double b_factor  = 1e+5;
 
 static const int ironNumber   = 0;
 static const int airNumber    = 1;         

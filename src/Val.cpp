@@ -8,14 +8,14 @@
 
 namespace py = pybind11;
 
-py::array_t<double> Cal(string ind_name,py::array_t<double> np_array){
+py::array_t<double> Cal(bool reval, string pcfg, int seed,string ind_name,py::array_t<double> np_array){
     double* GaussianW = new double[GaussianDiv]();
     for(int i = 0; i < GaussianDiv; i++) {
         GaussianW[i] = np_array.mutable_at(i);
     }
     clock_t start = std::clock();
     fem FEM;
-    FEM.FEM(ind_name,GaussianW);
+    FEM.FEM(reval,pcfg,seed,ind_name,GaussianW);
     std::clock_t end          = std::clock();
     double duration           = static_cast<double>(end - start) / CLOCKS_PER_SEC;
     std::vector<double> vec_a = FEM.RetA();

@@ -5,6 +5,7 @@
 #include <set>
 #include "nlohmann/json.hpp"
 #include "setting.h"
+#include "fstream"
 
 using json = nlohmann::json;
 
@@ -45,7 +46,7 @@ fem::~fem() {
     delete[] ElementData;
 }
 
-void fem::FEM(string ind_name,double* GaussianW) {
+void fem::FEM(bool reval,string pcfg,int seed,string ind_name,double* GaussianW) {
     //cout << "start ind--------------------------------------------" << endl;
     //cout << "   Ind name : " << ind_name << endl;
     read_mesh1(Msh1File,NodeData,ElementData,TotalNodeNumber,TotalElementNumber);
@@ -60,10 +61,30 @@ void fem::FEM(string ind_name,double* GaussianW) {
     nonlinear nl;
     nl.NonLinear(NodeData, ElementData,A, b,  Bx, By);
     vec_a.assign(A, A + TotalNodeNumber);
-    // SheildS = nl.RetS();
-    // CalTargetBB(Bx,By);
-    // VisualWrapper(ind_name,A, Bx, By);
-    // write_Json(ind_name, A, Bx, By);
+    
+    if (reval){
+        SheildS = nl.RetS();
+        CalTargetBB(Bx,By);
+        double F = b_factor * ABSB + SheildS;
+        std::ostringstream oss;
+        oss << "../results/" << pcfg << "_" << seed << "/best.csv";
+        std::string filename = oss.str();
+        std::ofstream ofs(filename);
+        ofs << "id,fitness,S,absb\n";
+        ofs << ind_name << ","
+            << F << ","
+            << SheildS << ","
+            << ABSB << "\n";
+        std::ostringstream path0;
+        path0 << "../results/" << pcfg << "_" << seed << "/reval.vtk";
+        std::string filename0 = path0.str();
+        Paraview_Bvector_Acontour(filename0.c_str(), A, Bx, By);
+        std::ostringstream path1;
+        path1 << "../results/" << pcfg << "_" << seed << "/material.vtk";
+        std::string filename1 = path1.str();
+        Paraview_MaterialConfig(filename1.c_str());
+    }
+
     delete[] A;
     delete[] b;
     delete[] Bx;
@@ -94,6 +115,13 @@ void fem::CalTargetBB(double* Bx,double* By){
         BB = sqrt(Bx[i-1]*Bx[i-1]+By[i-1]*By[i-1]);
         cout << "BB : " << BB << endl;
         ABSB += BB;
+        std::vector<std::string> header = {
+            "id",
+            "fitness",
+            "S",
+            "absb"
+        };
+
     }
     cout << "ABSB : " << ABSB << endl;
 }
