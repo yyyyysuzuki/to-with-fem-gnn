@@ -7,7 +7,9 @@ class Gene():
     def __init__(self, dim, minval, maxval):
         self.Dim        = dim
         self.gid        = None
-        self.area       = None
+        self.garea      = None
+        self.gabsb      = None
+        self.gfem       = None
         self.Fitness    = 0.                                     
         self.Gene       = np.random.uniform(minval, maxval, dim)    
         self.minval     = minval
@@ -31,6 +33,15 @@ class Gene():
     def id(self):
         return self.gid
     def set_s(self, s):
-        self.area = s
+        self.garea   = s
+        self.Fitness = None
     def s(self):
-        return self.area
+        return self.garea
+    def set_absb(self, absb):
+        self.gabsb   = absb
+        self.Fitness = None
+    def set_fem(self, fem):
+        self.gfem = fem
+    def fem(self):
+        return self.gfem
+    

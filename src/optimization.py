@@ -122,6 +122,8 @@ class GeneticAlgorithm():
             self.minsort(self.children)
             self.Replace()
             self.minsort(self.population)
+
+
             if(GenLoop == 0):
                 self.best = copy.deepcopy(self.population[0])
             
@@ -146,11 +148,7 @@ class GeneticAlgorithm():
             plt.savefig('FitnessCurve.png')
             plt.clf()
 
-            # if (math.sqrt((Gene.fitness(self.best))**2) <= 1e-7):
-            #     print(GenLoop)
-            #     print(Gene.gene(self.best))
-            #     break
-        self.reval()
+        self.reval_best()
  #-----------------------------------------------
     ##  4. reproduction
     def Reproduction(self):
@@ -226,42 +224,42 @@ class GeneticAlgorithm():
             A_rescaling   = OutList[i].numpy() / self.A_scaling
             bx,by         = tb.CalB_v2(A_rescaling,self.node,self.element)
             absb_pred     = tb.CalTargetBB(bx,by)
-            fitness_pred  = list_s[j] + 1e+5*absb_pred
-
-            # 2. FEM 再解析するか判断
-            if self.should_run_fem(fitness_pred, self.pcfg, None):
-                used_fem_flag = True
-                a_reval       = Cal.Cal(0,self.pcfg,self.seed,str(id),g[j].gene())
-                a_reval       = a_reval.reshape(-1, 1)
-                bx,by         = tb.CalB_v2(a_reval,self.node,self.element)
-                absb          = tb.CalTargetBB(bx,by)
-                fitness       = list_s[j] + 1e+5*absb
-                self.numfem   += 1
-            else:
-                absb    = absb_pred
-                fitness = fitness_pred
-            
+            fitness_pred  = self.obj_func(list_s[j],absb_pred)
+            g[j].set_absb(absb_pred)
+            g[j].set_fitness(fitness_pred)
 
             print("end val-------------------------------------")
             print(f"id      : {id}")
             print(f"FEM?    : {used_fem_flag}")
-            print(f"|B|     : {absb}")
+            print(f"|B|     : {absb_pred}")
             print(f"S       : {list_s[j]}")
-            print(f"fitness : {fitness}")
+            print(f"fitness : {fitness_pred}")
             self.is_fem.append(used_fem_flag)
             self.list_id.append(id)
-            self.list_absb.append(absb)
+            self.list_absb.append(absb_pred)
             self.list_s.append(list_s[j])
-            self.list_value.append(fitness)
+            self.list_value.append(fitness_pred)
             self.list_void.append(0)
-            Gene.set_fitness(g[j], fitness)
+
         "重み保存------------------------------------------------"
 
-    def reval(self):
+    def reval_best(self):
         g             = self.best
         a_reval       = Cal.Cal(1,self.pcfg,self.seed,g.id(),g.gene())
         "ここに　_,s = gh.graph() ってかくだけでpythonで完結できた．まじでふざけてる　返してくれ俺の1.5h"
 
+    def reval_pop(self):
+        while True:
+            i = 0
+            j = 0
+            g = self.population[i]
+            if g.fem != True:
+                self.num_fem += 1
+                a_reval = Cal.Cal()
+                
+    
+    def obj_func(self, s, absb):
+        return s + cfg.ALPHA * absb
 
     def BestParents(self):
         Parent_Mirror = self.parent + self.mirror

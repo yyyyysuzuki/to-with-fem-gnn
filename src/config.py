@@ -28,62 +28,32 @@ ID_AIR  = 1
 ID_COIL = 2
 
 # --- GA の設定 ---
-# DIM             = 64
-# STEPSIZE        = 2.5
-# GENERATION      = 10
-# POPNUMBER       = 10
-# PARENTNUMBER    = 2
-# CHILDRENNUMBER  = 4
-# FUNCTYPE        = 'FEM'
-# MINVAL          = -5.12
-# MAXVAL          = 5.12
-
 DIM             = 64
 STEPSIZE        = 2.5
-GENERATION      = 100
-POPNUMBER       = 1000
-PARENTNUMBER    = 100
-CHILDRENNUMBER  = 200
+GENERATION      = 10
+POPNUMBER       = 10
+PARENTNUMBER    = 2
+CHILDRENNUMBER  = 4
 FUNCTYPE        = 'FEM'
 MINVAL          = -5.12
 MAXVAL          = 5.12
+
+# DIM             = 64
+# STEPSIZE        = 2.5
+# GENERATION      = 100
+# POPNUMBER       = 1000
+# PARENTNUMBER    = 100
+# CHILDRENNUMBER  = 200
+# FUNCTYPE        = 'FEM'
+# MINVAL          = -5.12
+# MAXVAL          = 5.12
 
 # --- 評価関数 の設定 ---
 ALPHA = 1e+5
 
 # --- 再解析 の設定 ---
-# BINS = [
-#     (-float('inf'), 0.80),
-#     (0.80, 0.85),
-#     (0.85, 0.90),
-#     (0.90, 0.95),
-#     (0.95, 1.00),
-#     (1.00, 1.05),
-#     (1.05, 1.10),
-#     (1.10, float('inf'))
-# ]
 
-# BINS = [
-#     (-float('inf'), 2.00),
-#     (2.00, 3.00),
-#     (3.00, 4.00),
-#     (4.00, 5.00),
-#     (5.00, 6.00),
-#     (6.00, 8.00),
-#     (8.00, 10.00),
-#     (10.00, float('inf'))
-# ]
 
-BINS = [
-    (-float('inf'), 2.00),
-    (2.00, 3.00),
-    (3.00, 4.00),
-    (4.00, 6.00),
-    (6.00, 8.00),
-    (8.00, 10.00),
-    (10.00, 30.00),
-    (30.00, float('inf'))
-]
 
 POLICY_A = [1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00]
 POLICY_B = [1.00, 1.00, 1.00, 0.50, 0.25, 0.13, 0.07, 0.00]
