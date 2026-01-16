@@ -39,13 +39,13 @@ NUM_ELITE = 0
 class GeneticAlgorithm():
  #---------------------------------------------
     ##  1. Constructor
-    def __init__(self, seed, pcfg, dim, stepsize, GenNumber, PopNumber, ParentNumber, ChildrenNumber, functype, minval, maxval):
+    def __init__(self, seed, p, dim, stepsize, GenNumber, PopNumber, ParentNumber, ChildrenNumber, functype, minval, maxval):
         self.seed            = seed
         random.seed(self.seed)
         np.random.seed(self.seed)
         torch.manual_seed(self.seed)
         torch.cuda.manual_seed(self.seed)
-        self.pcfg            = pcfg
+        self.p               = p
         self.indnum          = 0
         self.numfem          = 0
         self.A_scaling       = 1e+6
@@ -123,6 +123,7 @@ class GeneticAlgorithm():
             self.Replace()
             self.minsort(self.population)
 
+            self.minsort(self.population)
 
             if(GenLoop == 0):
                 self.best = copy.deepcopy(self.population[0])
@@ -225,6 +226,7 @@ class GeneticAlgorithm():
             bx,by         = tb.CalB_v2(A_rescaling,self.node,self.element)
             absb_pred     = tb.CalTargetBB(bx,by)
             fitness_pred  = self.obj_func(list_s[j],absb_pred)
+            g[j].set_fem(used_fem_flag)
             g[j].set_absb(absb_pred)
             g[j].set_fitness(fitness_pred)
 
@@ -245,19 +247,31 @@ class GeneticAlgorithm():
 
     def reval_best(self):
         g             = self.best
-        a_reval       = Cal.Cal(1,self.pcfg,self.seed,g.id(),g.gene())
-        "ここに　_,s = gh.graph() ってかくだけでpythonで完結できた．まじでふざけてる　返してくれ俺の1.5h"
-
+        a_reval       = Cal.Cal(1,f"{self.pcfg}",self.seed,g.id(),g.gene())
+        
     def reval_pop(self):
+        i = 0
+        j = 0
         while True:
-            i = 0
-            j = 0
             g = self.population[i]
-            if g.fem != True:
-                self.num_fem += 1
-                a_reval = Cal.Cal()
-                
-    
+            if g.fem() != True:
+                j            += 1
+                self.numfem  += 1
+                a_reval       = Cal.Cal(0,f"{self.pcfg}",self.seed,g.id(),g.gene())
+                a_reval       = a_reval.reshape(-1, 1)
+                bx,by         = tb.CalB_v2(a_reval,self.node,self.element)
+                absb          = tb.CalTargetBB(bx,by)
+                fitness       = self.obj_func(g.s(), absb)
+                g.set_absb(absb)
+                g.set_fitness(fitness)
+                g.set_fem(True)
+            if i >= self.PopNumber - 1:
+                break
+            elif j >= self.PupNumber * self.p:
+                break
+            else:
+                i += 1
+
     def obj_func(self, s, absb):
         return s + cfg.ALPHA * absb
 

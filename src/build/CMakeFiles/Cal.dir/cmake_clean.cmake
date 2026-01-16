@@ -9,7 +9,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/Cal.dir/Val.cpp.o.d"
   "CMakeFiles/Cal.dir/toolbox.cpp.o"
   "CMakeFiles/Cal.dir/toolbox.cpp.o.d"
-  "Cal.cpython-310-x86_64-linux-gnu.so"
+  "Cal.cpython-313-x86_64-linux-gnu.so"
   "Cal.pdb"
 )
 
