@@ -122,7 +122,7 @@ class GeneticAlgorithm():
             self.minsort(self.children)
             self.Replace()
             self.minsort(self.population)
-
+            self.reval_pop()
             self.minsort(self.population)
 
             if(GenLoop == 0):
