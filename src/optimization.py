@@ -123,8 +123,6 @@ class GeneticAlgorithm():
             self.Replace()
             self.minsort(self.population)
 
-            self.minsort(self.population)
-
             if(GenLoop == 0):
                 self.best = copy.deepcopy(self.population[0])
             
@@ -138,8 +136,8 @@ class GeneticAlgorithm():
             bestfitness.append(Gene.fitness(self.best))
             avefitness.append(self.average())
             
-            tb.write_three_lists_to_csv(avefitness, bestfitness, fem, f'../results/{self.pcfg}_{self.seed}/gen_fitness.csv', ('ave','best','is fem'))
-            tb.write_six_lists_to_csv(self.list_id,self.is_fem,self.list_absb,self.list_s,self.list_value,self.list_void,f'../results/{self.pcfg}_{self.seed}/fitness.csv',('id','FEM?','ABSB','SheldS','fitness','void'))
+            tb.write_three_lists_to_csv(avefitness, bestfitness, fem, f'../results/{self.p}_{self.seed}/gen_fitness.csv', ('ave','best','is fem'))
+            tb.write_six_lists_to_csv(self.list_id,self.is_fem,self.list_absb,self.list_s,self.list_value,self.list_void,f'../results/{self.p}_{self.seed}/fitness.csv',('id','FEM?','ABSB','SheldS','fitness','void'))
             plt.figure()
             plt.plot(countGen, bestfitness,   color='black', linestyle='solid',   label='best')
             plt.plot(countGen, avefitness,    color='black', linestyle='dotted',  label='average')
@@ -196,9 +194,9 @@ class GeneticAlgorithm():
             list_s.append(s)
             g[i].set_s(s)
             self.indnum += 1
-            tb.write_list_to_csv(g[i].gene(), f"../results/{self.pcfg}_{self.seed}/w_{id}.csv", header=None)
+            #tb.write_list_to_csv(g[i].gene(), f"../results/{self.p}_{self.seed}/w_{id}.csv", header=None)
         "推論------------------------------------------"
-        eval_loader = DataLoader(list_data,batch_size=32,shuffle = False)
+        eval_loader = DataLoader(list_data,batch_size=16,shuffle = False)
         OutList    = []
         OutListMSE = []
         IdList     = []
@@ -229,7 +227,6 @@ class GeneticAlgorithm():
             g[j].set_fem(used_fem_flag)
             g[j].set_absb(absb_pred)
             g[j].set_fitness(fitness_pred)
-
             print("end val-------------------------------------")
             print(f"id      : {id}")
             print(f"FEM?    : {used_fem_flag}")
@@ -247,7 +244,7 @@ class GeneticAlgorithm():
 
     def reval_best(self):
         g             = self.best
-        a_reval       = Cal.Cal(1,f"{self.pcfg}",self.seed,g.id(),g.gene())
+        a_reval       = Cal.Cal(1,self.p,self.seed,g.id(),g.gene())
         
     def reval_pop(self):
         i = 0
@@ -257,7 +254,7 @@ class GeneticAlgorithm():
             if g.fem() != True:
                 j            += 1
                 self.numfem  += 1
-                a_reval       = Cal.Cal(0,f"{self.pcfg}",self.seed,g.id(),g.gene())
+                a_reval       = Cal.Cal(0,self.p,self.seed,g.id(),g.gene())
                 a_reval       = a_reval.reshape(-1, 1)
                 bx,by         = tb.CalB_v2(a_reval,self.node,self.element)
                 absb          = tb.CalTargetBB(bx,by)
@@ -267,10 +264,11 @@ class GeneticAlgorithm():
                 g.set_fem(True)
             if i >= self.PopNumber - 1:
                 break
-            elif j >= self.PupNumber * self.p:
+            elif j >= self.PopNumber * cfg.POLICIES[self.p]:
                 break
             else:
                 i += 1
+            
 
     def obj_func(self, s, absb):
         return s + cfg.ALPHA * absb
