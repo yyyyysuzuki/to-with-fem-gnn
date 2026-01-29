@@ -56,6 +56,7 @@ ALPHA = 1e+5
 POLICIES = {
     "a": 0.05,
     "b": 0.20,
+    "a-reval-in-evalfunc":0.5,
 }
 
 

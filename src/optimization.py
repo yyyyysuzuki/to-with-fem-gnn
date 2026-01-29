@@ -224,6 +224,17 @@ class GeneticAlgorithm():
             bx,by         = tb.CalB_v2(A_rescaling,self.node,self.element)
             absb_pred     = tb.CalTargetBB(bx,by)
             fitness_pred  = self.obj_func(list_s[j],absb_pred)
+
+             # 2. FEM 再解析するか判断
+            if  cfg.POLICIES[self.p] < random.random():
+                used_fem_flag = True
+                self.numfem  += 1
+                a_reval       = Cal.Cal(0,self.p,self.seed,g[j].id(),g[j].gene())
+                a_reval       = a_reval.reshape(-1, 1)
+                bx,by         = tb.CalB_v2(a_reval,self.node,self.element)
+                absb_pred     = tb.CalTargetBB(bx,by)
+                fitness_pred  = self.obj_func(g[j].s(), absb_pred)
+                
             g[j].set_fem(used_fem_flag)
             g[j].set_absb(absb_pred)
             g[j].set_fitness(fitness_pred)
@@ -244,7 +255,7 @@ class GeneticAlgorithm():
 
     def reval_best(self):
         g             = self.best
-        a_reval       = Cal.Cal(1,self.p,self.seed,g.id(),g.gene())
+        _             = Cal.Cal(1,self.p,self.seed,g.id(),g.gene())
         
     def reval_pop(self):
         i = 0
