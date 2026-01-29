@@ -122,8 +122,6 @@ class GeneticAlgorithm():
             self.minsort(self.children)
             self.Replace()
             self.minsort(self.population)
-            self.reval_pop()
-            self.minsort(self.population)
 
             if(GenLoop == 0):
                 self.best = copy.deepcopy(self.population[0])
@@ -308,7 +306,20 @@ class GeneticAlgorithm():
     ##  12. replace population with children
     def Replace(self):
         for i in range(self.ParentNumber):
-            self.population[self.idx_tmp[i]] = copy.deepcopy(self.children[i])
+            g             = copy.deepcopy(self.children[i])
+            
+            
+            self.numfem += 1
+            a_reval       = Cal.Cal(0,self.p,self.seed,g.id(),g.gene())
+            a_reval       = a_reval.reshape(-1, 1)
+            bx,by         = tb.CalB_v2(a_reval,self.node,self.element)
+            absb          = tb.CalTargetBB(bx,by)
+            fitness       = self.obj_func(g.s(), absb)
+            g.set_absb(absb)
+            g.set_fitness(fitness)
+            g.set_fem(True)           
+
+            self.population[self.idx_tmp[i]] = g
 #-----------------------------------------------
     def average(self):
         aveval = 0.
