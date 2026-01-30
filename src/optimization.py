@@ -305,11 +305,13 @@ class GeneticAlgorithm():
  #-----------------------------------------------
     ##  12. replace population with children
     def Replace(self):
+        j             = 0
+        num_lim_fem   = int(self.ParentNumber * cfg.POLICIES[self.p]) 
         for i in range(self.ParentNumber):
             g             = copy.deepcopy(self.children[i])
-            
-            if  cfg.POLICIES[self.p] >= random.random():
+            if  j < num_lim_fem:
                 self.numfem += 1
+                j           += 1
                 a_reval       = Cal.Cal(0,self.p,self.seed,g.id(),g.gene())
                 a_reval       = a_reval.reshape(-1, 1)
                 bx,by         = tb.CalB_v2(a_reval,self.node,self.element)
